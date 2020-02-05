@@ -9,8 +9,26 @@ fi
 
 function controller () {
     
-    ./network/network.sh
-    ./user/user.sh
+    netvar='Y'
+    echo 'NOTE: if you have created network_var.sh before, select "n" '
+    read -p 'Do you want to create network_var.sh [Y/n]? ' $netvar
+    
+    if [ $netvar -eq 'Y' ]; then
+        ./network/network.sh
+    elif [ $netvar -ne 'Y' ]; then
+        :
+    fi
+
+    uservar='Y'
+    echo 'NOTE: if you have created user_var.sh before, select "n" '
+    read -p 'Do you want to create user_var.sh [Y/n]? ' $uservar
+    
+    if [ $uservar -eq 'Y' ]; then
+        ./user/user.sh
+    elif [ $uservar -ne 'Y' ]; then
+        :
+    fi
+    
 
     while [ true ]; do
         

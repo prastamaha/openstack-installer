@@ -19,6 +19,9 @@ if [ $run -eq 'Y' ]; then
 elif [ $run = 'n' ]; then
     echo 'Exited from Nova add compute'
     exit
+else
+    echo 'Command not found'
+    exit
 fi
 
 

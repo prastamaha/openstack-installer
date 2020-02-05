@@ -5,8 +5,8 @@ if [ "$EUID" -ne 0 ]; then
     exit
 fi
 
-source ../user/user_var.sh
-source ../network/network.sh
+source user/user_var.sh
+source network/network.sh
 
 echo
 echo 'LOG: Install neutron package'

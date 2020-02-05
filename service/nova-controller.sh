@@ -5,8 +5,8 @@ if [ "$EUID" -ne 0 ]; then
     exit
 fi
 
-source ../user/user.sh
-source ../network.network_var.sh
+source user/user.sh
+source network.network_var.sh
 
 mysql -u root -p$DBROOT_PASS -e "CREATE DATABASE nova_api;"
 mysql -u root -p$DBROOT_PASS -e "CREATE DATABASE nova;"
