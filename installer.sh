@@ -7,100 +7,75 @@ if [ "$EUID" -ne 0 ]; then
     exit
 fi
 
-function network_ip () {
-    echo '=========== CONTROLLER ============'
-    read -p 'Enter your controller provider ip address: ' CONTROLLER_PROVIDER_IP
-    read -p 'Enter your controller management ip address: 'CONTROLLER_MANAGEMENT_IP
-    echo '============= COMPUTE =============='
-    read -p 'Enter your compute provider ip address: ' COMPUTE_PROVIDER_IP
-    read -p 'Enter your compute management ip address: 'COMPUTE_MANAGEMENT_IP
-}
-
-function user_password () {
-    echo '=========== USER AND PASSWORD ============'
-    echo 'create user and password for openstack service'
-    USER_PASS=./user_pass_openstack.txt
-
-    read -p 'DBROOT_PASS : ' DBROOT_PASS
-    echo 'DBROOT_PASS = '$DBROOT_PASS >> $USER_PASS
-
-    read -p 'ADMIN_PASS : ' ADMIN_PASS
-    echo 'ADMIN_PASS = '$ADMIN_PASS >> $USER_PASS
-
-    read -p 'GLANCE_PASS : ' GLANCE_PASS
-    echo 'GLANCE_PASS = '$GLANCE_PASS >> $USER_PASS
-
-    read -p 'GLANCEDB_PASS : ' GLANCEDB_PASS
-    echo 'GLANCEDB_PASS = '$GLANCEDB_PASS >> $USER_PASS
-
-    read -p 'KEYSTONE_DBPASS : ' KEYSTONE_DBPASS
-    echo 'KEYSTONE_DBPASS = '$KEYSTONE_DBPASS >> $USER_PASS
-
-    read -p 'NEUTRON_PASS : ' NEUTRON_PASS
-    echo 'NEUTRON_PASS = '$NEUTRON_PASS >> $USER_PASS
-
-    read -p 'NEUTRONDB_PASS : ' NEUTRONDB_PASS
-    echo 'NEUTRONDB_PASS = '$NEUTRONDB_PASS >> $USER_PASS
-
-    read -p 'NOVA_PASS : ' NOVA_PASS
-    echo 'NOVA_PASS = '$NOVA_PASS >> $USER_PASS
-
-    read -p 'NOVADB_PASS : ' NOVADB_PASS
-    echo 'NOVADB_PASS = '$NOVADB_PASS >> $USER_PASS
-
-    read -p 'PLACEMENT_PASS : ' PLACEMENT_PASS
-    echo 'PLACEMENT_PASS = '$PLACEMENT_PASS >> $USER_PASS
-
-    read -p 'RABBIT_PASS : ' RABBIT_PASS
-    echo 'RABBIT_PASS = '$RABBIT_PASS >> $USER_PASS
-
-    read -p 'METADATA_SECRET : ' METADATA_SECRET
-    echo 'METADATA_SECRET = '$METADATA_SECRET >> $USER_PASS
-}
-
-function prerequisites () {
-    echo 
-    echo 'LOG: Update Repository'
-    yum -y update
-    yum -y install centos-release-openstack-queens epel-release
-    yum repolist
-    yum -y update
-
-    echo
-    echo 'LOG: Install Utility Package'
-    yum -y install vim nano wget screen crudini htop
-
-    echo
-    echo 'LOG: Configure NTP'
-    yum -y install chrony
-    systemctl enable chronyd.service
-    systemctl restart chronyd.service
-    #systemctl status chronyd.service
-
-    echo
-    echo 'LOG: Disable Firewall and Install openstack Selinux'
-    yum -y install openstack-selinux
-    systemctl stop firewalld.service
-    systemctl disable firewalld.service
-    #systemctl status firewalld.service
-
-    echo 
-    echo 'LOG: Install Openstack Client'
-    yum -y install python-openstackclient
-}
-
 function controller () {
-    prerequisites
+    
+    ./network/network.sh
+    ./user/user.sh
 
+    while [ true ]; do
+        
+        echo '=============================='
+        echo 'SELECT SERVICE TO BE INSTALLED: '
+        echo '[1] Prerequisites'
+        echo '[2] Keystone'
+        echo '[3] Nova - controller'
+        echo '[4] Neutron - controller'
+        echo '[5] Horizon'
+        echo '[0] Exit'
+
+        read -p '>> ' service
+
+        if [ $service -eq '1' ]; then
+            echo 'LOG: Install Prerequisites'
+            ./service/prerequisites-controller.sh
+        elif [ $service -eq '2' ]; then
+        elif [ $service -eq '3' ]; then
+        elif [ $service -eq '4' ]; then
+        elif [ $service -eq '5' ]; then
+        elif [ $service -eq '0' ]; then
+            echo 'Program Exited'
+            exit
+        else
+            echo 'Command not found'
+        fi
+
+    done
 }
 
 function compute () {
-    prerequisites
+
+    ./network/network.sh
+    ./user/user.sh
+    
+    while [ true ]; do
+        
+        echo '=============================='
+        echo 'SELECT SERVICE TO BE INSTALLED: '
+        echo '[1] Prerequisites'
+        echo '[2] Nova - compute'
+        echo '[3] Neutron - compute'
+        echo '[0] Exit'
+
+        read -p '>> ' service
+
+        if [ $service -eq '1' ]; then
+            echo 'LOG: Install Prerequisites'
+            ./service/prerequisites-compute.sh
+        elif [ $service -eq '2' ]; then
+        elif [ $service -eq '3' ]; then
+        elif [ $service -eq '0' ]; then
+            echo 'Program Exited'
+            exit
+        else
+            echo 'Command not found'
+        fi
+
+    done
 }
 
 echo 'Select the type of server to be installed: '
-echo '[1] = controller'
-echo '[2] = compute'
+echo '[1] Controller'
+echo '[2] Compute'
 read -p '>> ' server_type
 
 if [ $server_type = '1' ]; then
