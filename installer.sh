@@ -9,23 +9,27 @@ fi
 
 function controller () {
     
-    netvar='Y'
     echo 'NOTE: if you have created network_var.sh before, select "n" '
-    read -p 'Do you want to create network_var.sh [Y/n]? ' $netvar
+    read -p 'Do you want to create network_var.sh [Y/n]? ' netvar
     
-    if [ $netvar -eq 'Y' ]; then
+    if [[ '$netvar' = 'Y' ]]; then
         ./network/network.sh
-    elif [ $netvar -ne 'Y' ]; then
+    elif [[ '$netvar' = 'n' ]]; then
+        :
+    else
+        echo 'Command not found'
         :
     fi
 
-    uservar='Y'
     echo 'NOTE: if you have created user_var.sh before, select "n" '
-    read -p 'Do you want to create user_var.sh [Y/n]? ' $uservar
+    read -p 'Do you want to create user_var.sh [Y/n]? ' uservar
     
-    if [ $uservar -eq 'Y' ]; then
+    if [[ '$uservar' = 'Y' ]]; then
         ./user/user.sh
-    elif [ $uservar -ne 'Y' ]; then
+    elif [[ '$uservar' = 'n' ]]; then
+        :
+    else
+        echo 'Command not found'
         :
     fi
     
@@ -74,8 +78,29 @@ function controller () {
 
 function compute () {
 
-    ./network/network.sh
-    ./user/user.sh
+    echo 'NOTE: if you have created network_var.sh before, select "n" '
+    read -p 'Do you want to create network_var.sh [Y/n]? ' netvar
+    
+    if [[ '$netvar' = 'Y' ]]; then
+        ./network/network.sh
+    elif [[ '$netvar' = 'n' ]]; then
+        :
+    else
+        echo 'Command not found'
+        :
+    fi
+
+    echo 'NOTE: if you have created user_var.sh before, select "n" '
+    read -p 'Do you want to create user_var.sh [Y/n]? ' uservar
+    
+    if [[ '$uservar' = 'Y' ]]; then
+        ./user/user.sh
+    elif [[ '$uservar' = 'n' ]]; then
+        :
+    else
+        echo 'Command not found'
+        :
+    fi
     
     while [ true ]; do
         

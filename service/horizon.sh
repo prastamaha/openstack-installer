@@ -25,7 +25,7 @@ sed -i -e "s/#*.*'BACKEND'.*:.*/        'BACKEND': 'django.core.cache.backends.m
 sed -i -e "s/#*.*'LOCATION'.*:.*/        'LOCATION': '$CONTROLLER_PROVIDER_IP:1121',/" /etc/openstack-dashboard/local_settings
 sed -i -e "s/#*.*}.*,/    }/" /etc/openstack-dashboard/local_settings
 sed -i -e "s/#}/}/" /etc/openstack-dashboard/local_settings
-sed -i -e 's/OPENSTACK_KEYSTONE_DEFAULT_ROLE = "_member_"/OPENSTACK_KEYSTONE_DEFAULT_ROLE = "user"/' /etc/openstack-dashboard/local_settingss
+sed -i -e 's/OPENSTACK_KEYSTONE_DEFAULT_ROLE = "_member_"/OPENSTACK_KEYSTONE_DEFAULT_ROLE = "user"/' /etc/openstack-dashboard/local_settings
 cat >> /etc/openstack-dashboard/local_settings << EOF
 OPENSTACK_API_VERSIONS = {
     "identity": 3,

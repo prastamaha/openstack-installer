@@ -6,6 +6,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 source network/network_var.sh
+source user/user_var.sh
 
 echo
 echo "LOG: create keystone database"
