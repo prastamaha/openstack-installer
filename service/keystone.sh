@@ -36,9 +36,9 @@ keystone-manage credential_setup --keystone-user keystone --keystone-group keyst
 echo
 echo "LOG: bootstrap keystone"
 keystone-manage bootstrap --bootstrap-password $ADMIN_PASS \
-  --bootstrap-admin-url http://$CONTROLLER_PROVIDER_IP/v3/ \
-  --bootstrap-internal-url http://$CONTROLLER_PROVIDER_IP/v3/ \
-  --bootstrap-public-url http://$CONTROLLER_PROVIDER_IP/v3/ \
+  --bootstrap-admin-url http://$CONTROLLER_PROVIDER_IP:5000/v3/ \
+  --bootstrap-internal-url http://$CONTROLLER_PROVIDER_IP:5000/v3/ \
+  --bootstrap-public-url http://$CONTROLLER_PROVIDER_IP:5000/v3/ \
   --bootstrap-region-id RegionOne
 
 echo
