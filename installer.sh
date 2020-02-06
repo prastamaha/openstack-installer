@@ -50,10 +50,11 @@ function controller () {
         echo 'SELECT SERVICE TO BE INSTALLED: '
         echo '[1] Prerequisites'
         echo '[2] Keystone'
-        echo '[3] Nova - controller'
-        echo '[4] Nova add compute node to database'
-        echo '[5] Neutron - controller'
-        echo '[6] Horizon'
+        echo '[3] Glance'
+        echo '[4] Nova - controller'
+        echo '[5] Nova add compute node to database'
+        echo '[6] Neutron - controller'
+        echo '[7] Horizon'
         echo '[0] Exit'
 
         read -p '>> ' service
@@ -65,15 +66,18 @@ function controller () {
             echo 'LOG: Install Keystone'
             ./service/keystone.sh
         elif [ $service -eq '3' ]; then
+            echo 'LOG: Install Glance'
+            ./service/glance.sh
+        elif [ $service -eq '4' ]; then
             echo 'LOG: Install Nova - controller'
             ./service/nova-controller.sh
-        elif [ $service -eq '4' ]; then
+        elif [ $service -eq '5' ]; then
             echo 'LOG: Add Nova Compute to database'
             ./service/nova-add-compute.sh
-        elif [ $service -eq '5' ]; then
+        elif [ $service -eq '6' ]; then
             echo 'LOG: Install Neutron - controller'
             ./service/neutron-controller.sh
-        elif [ $service -eq '6' ]; then
+        elif [ $service -eq '7' ]; then
             echo 'LOG: Install Horizon'
             ./service/horizon.sh
         elif [ $service -eq '0' ]; then
