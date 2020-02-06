@@ -6,6 +6,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 source network/network_var.sh
+source user/user_var.sh
 
 echo
 echo "LOG: install package"
@@ -34,7 +35,7 @@ crudini --set /etc/nova/nova.conf placement auth_type password
 crudini --set /etc/nova/nova.conf placement user_domain_name Default
 crudini --set /etc/nova/nova.conf placement auth_url http://$CONTROLLER_PROVIDER_IP:5000/v3
 crudini --set /etc/nova/nova.conf placement username placement
-crudini --set /etc/nova/nova.conf placement password PLACEMENT_PASS
+crudini --set /etc/nova/nova.conf placement password $PLACEMENT_PASS
 
 crudini --set /etc/nova/nova.conf api auth_strategy keystone
 
@@ -45,7 +46,7 @@ crudini --set /etc/nova/nova.conf keystone_authtoken project_domain_name Default
 crudini --set /etc/nova/nova.conf keystone_authtoken user_domain_name Default
 crudini --set /etc/nova/nova.conf keystone_authtoken project_name service
 crudini --set /etc/nova/nova.conf keystone_authtoken username nova
-crudini --set /etc/nova/nova.conf keystone_authtoken password NOVA_PASS
+crudini --set /etc/nova/nova.conf keystone_authtoken password $NOVA_PASS
 
 crudini --set /etc/nova/nova.conf libvirt virt_type qemu
 
