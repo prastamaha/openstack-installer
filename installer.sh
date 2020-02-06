@@ -93,15 +93,25 @@ function compute () {
     echo 'NOTE: if you have created user_var.sh before, select "n" '
     read -p 'Do you want to create user_var.sh [Y/n]? ' uservar
     
-    if [[ '$uservar' = 'Y' ]]; then
-        ./user/user.sh
-    elif [[ '$uservar' = 'n' ]]; then
+    if [[ "$uservar" = "Y" ]]; then
+        echo '=============================='
+        echo '[1] One password to all services'
+        echo '[2] Different password for each services'
+        read -p '>> ' samepass
+            if [ "$samepass" = "1" ]; then
+                source ./user/user.sh
+                same_pass
+            elif [ "$samepass" = "2" ]; then
+                source ./user/user.sh
+                different_pass
+            fi
+    elif [[ "$uservar" = "n" ]]; then
         :
     else
         echo 'Command not found'
         :
     fi
-    
+
     while [ true ]; do
         
         echo '=============================='
