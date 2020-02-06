@@ -91,9 +91,9 @@ function compute () {
     echo 'NOTE: if you have created network_var.sh before, select "n" '
     read -p 'Do you want to create network_var.sh [Y/n]? ' netvar
     
-    if [[ '$netvar' = 'Y' ]]; then
+    if [[ "$netvar" = "Y" ]]; then
         ./network/network.sh
-    elif [[ '$netvar' = 'n' ]]; then
+    elif [[ "$netvar" = "n" ]]; then
         :
     else
         echo 'Command not found'
