@@ -11,8 +11,8 @@ source network/network_var.sh
 echo
 echo 'LOG: Create glance database'
 mysql -u root -p$DBROOT_PASS -e "CREATE DATABASE glance;"
-mysql -u root -p$DBROOT_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY '$GLANCE_DBPASS';"
-mysql -u root -p$DBROOT_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY '$GLANCE_DBPASS';"
+mysql -u root -p$DBROOT_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY '$GLANCEDB_PASS';"
+mysql -u root -p$DBROOT_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY '$GLANCEDB_PASS';"
 mysql -u root -p$DBROOT_PASS -e "FLUSH PRIVILEGES;"
 
 source ../admin_rc
