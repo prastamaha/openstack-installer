@@ -98,6 +98,7 @@ crudini --set /etc/nova/nova.conf keystone_authtoken password $NOVA_PASS
 echo 
 echo 'LOG: Edit placement api'
 cat >> /etc/httpd/conf.d/00-nova-placement-api.conf << EOF
+
 <Directory /usr/bin>
    <IfVersion >= 2.4>
       Require all granted
