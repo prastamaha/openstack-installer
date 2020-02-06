@@ -117,13 +117,13 @@ crudini --set /etc/neutron/dhcp_agent.ini DEFAULT enable_isolated_metadata true
 
 echo 
 echo 'LOG: Configure Metadata agent'
-crudini --set /etc/neutron/metadata_agent.ini DEFAULT nova_metadata_host $CONTROLLER_MANAGEMENT_IP
+crudini --set /etc/neutron/metadata_agent.ini DEFAULT nova_metadata_host $CONTROLLER_PROVIDER_IP
 crudini --set /etc/neutron/metadata_agent.ini DEFAULT metadata_proxy_shared_secret $METADATA_SECRET
 
 echo
 echo 'LOG: Configure Compute Service to Use Networking service'
-crudini --set /etc/nova/nova.conf neutron url http://$CONTROLLER_MANAGEMENT_IP:9696
-crudini --set /etc/nova/nova.conf neutron auth_url http://$CONTROLLER_MANAGEMENT_IP:35357
+crudini --set /etc/nova/nova.conf neutron url http://$CONTROLLER_PROVIDER_IP:9696
+crudini --set /etc/nova/nova.conf neutron auth_url http://$CONTROLLER_PROVIDER_IP:35357
 crudini --set /etc/nova/nova.conf neutron auth_type password
 crudini --set /etc/nova/nova.conf neutron project_domain_name default
 crudini --set /etc/nova/nova.conf neutron user_domain_name default
