@@ -38,7 +38,7 @@ yum -y install openstack-neutron openstack-neutron-ml2 openstack-neutron-linuxbr
 
 echo
 echo 'LOG: Configure neutron component'
-crudini --set /etc/neutron/neutron.conf database connection  mysql+pymysql://neutron:$NEUTRONDB_PASS@$CONTROLLER_PROVIDER_IP/neutron
+crudini --set /etc/neutron/neutron.conf database connection mysql+pymysql://neutron:$NEUTRONDB_PASS@$CONTROLLER_PROVIDER_IP/neutron
 
 crudini --set /etc/neutron/neutron.conf DEFAULT core_plugin ml2
 crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins router
@@ -57,7 +57,6 @@ crudini --set /etc/neutron/neutron.conf keystone_authtoken user_domain_name defa
 crudini --set /etc/neutron/neutron.conf keystone_authtoken project_name service
 crudini --set /etc/neutron/neutron.conf keystone_authtoken username neutron
 crudini --set /etc/neutron/neutron.conf keystone_authtoken password $NEUTRON_PASS
-crudini --set /etc/neutron/neutron.conf keystone_authtoken
 
 crudini --set /etc/neutron/neutron.conf nova auth_url http://$CONTROLLER_PROVIDER_IP:35357
 crudini --set /etc/neutron/neutron.conf nova auth_type password
@@ -91,7 +90,7 @@ crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physic
 
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan true
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip $CONTROLLER_MANAGEMENT_IP
-crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan l2_population
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan l2_population true
 
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup enable_security_group true
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup firewall_driver neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
