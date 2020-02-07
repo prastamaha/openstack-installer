@@ -52,9 +52,10 @@ function controller () {
         echo '[2] Keystone'
         echo '[3] Glance'
         echo '[4] Nova - controller'
-        echo '[5] Nova add compute node to database'
-        echo '[6] Neutron - controller'
-        echo '[7] Horizon'
+        echo '[5] Neutron - controller'
+        echo '[6] Horizon'
+        echo '[7] Add Nova compute service'
+        echo '[8] Add Neutron compute service'
         echo '[0] Exit'
 
         read -p '>> ' service
@@ -72,14 +73,17 @@ function controller () {
             echo 'LOG: Install Nova - controller'
             ./service/nova-controller.sh
         elif [ $service -eq '5' ]; then
-            echo 'LOG: Add Nova Compute to database'
-            ./service/nova-add-compute.sh
-        elif [ $service -eq '6' ]; then
             echo 'LOG: Install Neutron - controller'
             ./service/neutron-controller.sh
-        elif [ $service -eq '7' ]; then
+        elif [ $service -eq '6' ]; then
             echo 'LOG: Install Horizon'
             ./service/horizon.sh
+        elif [ $service -eq '7' ]; then
+            echo 'LOG: Add Nova compute service'
+            ./service/nova-add-compute.sh
+        elif [ $service -eq '8' ]; then
+            echo 'LOG: Add Neutron compute service'
+            ./service/neutron-add-compute.sh
         elif [ $service -eq '0' ]; then
             echo 'Program Exited'
             exit
