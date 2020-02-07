@@ -54,3 +54,8 @@ echo
 echo "LOG: start service"
 systemctl enable libvirtd.service openstack-nova-compute.service
 systemctl start libvirtd.service openstack-nova-compute.service
+
+echo
+echo '==========================================='
+echo '           INSTALL SUCCESSFULLY            '
+echo '==========================================='

@@ -34,6 +34,7 @@ echo
 echo 'LOG: Install Openstack Client'
 yum -y install python-openstackclient
 
+echo
 echo '==========================================='
-echo '    PREREQUISITES INSTALL SUCCESSFULLY     '
+echo '           INSTALL SUCCESSFULLY            '
 echo '==========================================='

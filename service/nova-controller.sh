@@ -143,3 +143,8 @@ systemctl enable openstack-nova-api.service \
 systemctl start openstack-nova-api.service \
   openstack-nova-consoleauth.service openstack-nova-scheduler.service \
   openstack-nova-conductor.service openstack-nova-novncproxy.service
+
+echo
+echo '==========================================='
+echo '           INSTALL SUCCESSFULLY            '
+echo '==========================================='

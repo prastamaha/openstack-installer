@@ -124,6 +124,7 @@ echo 'Start and Enable Etcd service'
 systemctl enable etcd
 systemctl start etcd
 
+echo
 echo '==========================================='
-echo '    PREREQUISITES INSTALL SUCCESSFULLY     '
+echo '           INSTALL SUCCESSFULLY            '
 echo '==========================================='

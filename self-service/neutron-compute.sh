@@ -30,9 +30,13 @@ crudini --set /etc/neutron/neutron.conf keystone_authtoken password $NEUTRON_PAS
 crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path /var/lib/neutron/tmp
 
 echo
-echo 'LOG: Configure Linuxbridge plugin'
+echo 'LOG: Configure networking options'
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings provider:$COMPUTE_PROVIDER_INT
-crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan false
+
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan true
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip $COMPUTE_MANAGEMENT_IP
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan l2_population true
+
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup enable_security_group true
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini securitygroup firewall_driver neutron.agent.linux.iptables_firewall.IptablesFirewallDriver
 
@@ -65,20 +69,11 @@ echo 'LOG: Start and enable linuxbridge agent'
 systemctl enable neutron-linuxbridge-agent.service
 systemctl start neutron-linuxbridge-agent.service
 
-state=$(systemctl is-active neutron-linuxbridge-agent.service)
+echo
+echo '==========================================='
+echo '           INSTALL SUCCESSFULLY            '
+echo '==========================================='
 
-if [ $state = active ]; then
-    echo
-    echo '==========================================='
-    echo '           INSTALL SUCCESSFULLY            '
-    echo '==========================================='
-else
-    echo
-    echo '==========================================='
-    echo '              INSTALL FAILED               '
-    echo '==========================================='
-fi
-
-
-
-
+# docs:
+# https://docs.openstack.org/neutron/queens/install/compute-install-rdo.html
+# https://docs.openstack.org/neutron/queens/install/compute-install-option2-rdo.html

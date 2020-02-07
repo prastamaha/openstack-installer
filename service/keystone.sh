@@ -78,3 +78,8 @@ openstack --os-auth-url http://controller:35357/v3 \
 echo
 echo "LOG: create service project"
 openstack project create --domain default --description "Service Project" service
+
+echo
+echo '==========================================='
+echo '           INSTALL SUCCESSFULLY            '
+echo '==========================================='

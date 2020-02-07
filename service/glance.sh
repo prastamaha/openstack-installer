@@ -73,3 +73,8 @@ echo
 echo 'LOG: Start and enable glance service'
 systemctl enable openstack-glance-api.service openstack-glance-registry.service
 systemctl start openstack-glance-api.service openstack-glance-registry.service
+
+echo
+echo '==========================================='
+echo '           INSTALL SUCCESSFULLY            '
+echo '==========================================='
