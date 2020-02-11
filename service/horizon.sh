@@ -22,7 +22,7 @@ EOF
 sed -i -e 's/#* *#CACHES .*= {.*/CACHES = {/' /etc/openstack-dashboard/local_settings
 sed -i -e "s/#*.*'default'.*: {.*/    'default': {/" /etc/openstack-dashboard/local_settings
 sed -i -e "s/#*.*'BACKEND'.*:.*/        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',/" /etc/openstack-dashboard/local_settings
-sed -i -e "s/#*.*'LOCATION'.*:.*/        'LOCATION': '$CONTROLLER_PROVIDER_IP:1121',}}/" /etc/openstack-dashboard/local_settings
+sed -i -e "s/#*.*'LOCATION'.*:.*/        'LOCATION': '$CONTROLLER_PROVIDER_IP:11211',}}/" /etc/openstack-dashboard/local_settings
 #sed -i -e "s/#*.*}.*,/    }/" /etc/openstack-dashboard/local_settings
 #sed -i -e "s/#}/}/" /etc/openstack-dashboard/local_settings
 sed -i -e 's/OPENSTACK_KEYSTONE_DEFAULT_ROLE = "_member_"/OPENSTACK_KEYSTONE_DEFAULT_ROLE = "user"/' /etc/openstack-dashboard/local_settings

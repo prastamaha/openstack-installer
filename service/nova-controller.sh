@@ -32,9 +32,9 @@ openstack service create --name nova --description "OpenStack Compute" compute
 
 echo
 echo 'LOG: Create nova api'
-openstack endpoint create --region RegionOne compute public http://$CONTROLLER_PROVIDER_IP:8774/v2.1
-openstack endpoint create --region RegionOne compute internal http://$CONTROLLER_PROVIDER_IP:8774/v2.1
-openstack endpoint create --region RegionOne compute admin http://$CONTROLLER_PROVIDER_IP:8774/v2.1
+openstack endpoint create --region RegionOne compute public http://$CONTROLLER_MANAGEMENT_IP:8774/v2.1
+openstack endpoint create --region RegionOne compute internal http://$CONTROLLER_MANAGEMENT_IP:8774/v2.1
+openstack endpoint create --region RegionOne compute admin http://$CONTROLLER_MANAGEMENT_IP:8774/v2.1
 
 echo 
 echo 'LOG: Create plancement service user'
@@ -47,9 +47,9 @@ openstack service create --name placement --description "Placement API" placemen
 
 echo
 echo 'LOG: Create placement api'
-openstack endpoint create --region RegionOne placement public http://$CONTROLLER_PROVIDER_IP:8778
-openstack endpoint create --region RegionOne placement internal http://$CONTROLLER_PROVIDER_IP:8778
-openstack endpoint create --region RegionOne placement admin http://$CONTROLLER_PROVIDER_IP:8778
+openstack endpoint create --region RegionOne placement public http://$CONTROLLER_MANAGEMENT_IP:8778
+openstack endpoint create --region RegionOne placement internal http://$CONTROLLER_MANAGEMENT_IP:8778
+openstack endpoint create --region RegionOne placement admin http://$CONTROLLER_MANAGEMENT_IP:8778
 
 echo
 echo 'LOG: Install nova package'
@@ -60,16 +60,16 @@ yum install openstack-nova-api openstack-nova-conductor \
 echo 
 echo 'LOG: Configure nova'
 crudini --set /etc/nova/nova.conf DEFAULT enabled_apis osapi_compute,metadata
-crudini --set /etc/nova/nova.conf DEFAULT transport_url rabbit://openstack:$RABBIT_PASS@$CONTROLLER_PROVIDER_IP
-crudini --set /etc/nova/nova.conf DEFAULT my_ip $CONTROLLER_PROVIDER_IP
+crudini --set /etc/nova/nova.conf DEFAULT transport_url rabbit://openstack:$RABBIT_PASS@$CONTROLLER_MANAGEMENT_IP
+crudini --set /etc/nova/nova.conf DEFAULT my_ip $CONTROLLER_MANAGEMENT_IP
 crudini --set /etc/nova/nova.conf DEFAULT use_neutron True
 crudini --set /etc/nova/nova.conf DEFAULT firewall_driver nova.virt.firewall.NoopFirewallDriver
 
 crudini --set /etc/nova/nova.conf vnc enabled True
-crudini --set /etc/nova/nova.conf vnc server_listen $CONTROLLER_PROVIDER_IP
-crudini --set /etc/nova/nova.conf vnc server_proxyclient_address $CONTROLLER_PROVIDER_IP
+crudini --set /etc/nova/nova.conf vnc server_listen $CONTROLLER_MANAGEMENT_IP
+crudini --set /etc/nova/nova.conf vnc server_proxyclient_address $CONTROLLER_MANAGEMENT_IP
 
-crudini --set /etc/nova/nova.conf glance api_servers http://$CONTROLLER_PROVIDER_IP:9292
+crudini --set /etc/nova/nova.conf glance api_servers http://$CONTROLLER_MANAGEMENT_IP:9292
 crudini --set /etc/nova/nova.conf oslo_concurrency lock_path /var/lib/nova/tmp
 
 crudini --set /etc/nova/nova.conf placement os_region_name RegionOne
@@ -77,17 +77,17 @@ crudini --set /etc/nova/nova.conf placement project_domain_name Default
 crudini --set /etc/nova/nova.conf placement project_name service
 crudini --set /etc/nova/nova.conf placement auth_type password
 crudini --set /etc/nova/nova.conf placement user_domain_name Default
-crudini --set /etc/nova/nova.conf placement auth_url http://$CONTROLLER_PROVIDER_IP:5000/v3
+crudini --set /etc/nova/nova.conf placement auth_url http://$CONTROLLER_MANAGEMENT_IP:5000/v3
 crudini --set /etc/nova/nova.conf placement username placement
 crudini --set /etc/nova/nova.conf placement password $PLACEMENT_PASS
 
-crudini --set /etc/nova/nova.conf api_database connection mysql+pymysql://nova:$NOVADB_PASS@$CONTROLLER_PROVIDER_IP/nova_api
-crudini --set /etc/nova/nova.conf database connection mysql+pymysql://nova:$NOVADB_PASS@$CONTROLLER_PROVIDER_IP/nova
+crudini --set /etc/nova/nova.conf api_database connection mysql+pymysql://nova:$NOVADB_PASS@$CONTROLLER_MANAGEMENT_IP/nova_api
+crudini --set /etc/nova/nova.conf database connection mysql+pymysql://nova:$NOVADB_PASS@$CONTROLLER_MANAGEMENT_IP/nova
 
 crudini --set /etc/nova/nova.conf api auth_strategy keystone
 
-crudini --set /etc/nova/nova.conf keystone_authtoken auth_url http://$CONTROLLER_PROVIDER_IP:5000/v3
-crudini --set /etc/nova/nova.conf keystone_authtoken memcached_servers $CONTROLLER_PROVIDER_IP:11211
+crudini --set /etc/nova/nova.conf keystone_authtoken auth_url http://$CONTROLLER_MANAGEMENT_IP:5000/v3
+crudini --set /etc/nova/nova.conf keystone_authtoken memcached_servers $CONTROLLER_MANAGEMENT_IP:11211
 crudini --set /etc/nova/nova.conf keystone_authtoken auth_type password
 crudini --set /etc/nova/nova.conf keystone_authtoken project_domain_name Default
 crudini --set /etc/nova/nova.conf keystone_authtoken user_domain_name Default
