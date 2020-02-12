@@ -17,6 +17,7 @@ mysql -u root -p$DBROOT_PASS -e "FLUSH PRIVILEGES;"
 
 echo 
 echo 'LOG: Create neutron user'
+source ../admin_rc
 openstack user create --domain default --password $NEUTRON_PASS neutron
 openstack role add --project service --user neutron admin
 
