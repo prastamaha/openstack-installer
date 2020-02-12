@@ -18,22 +18,24 @@ This is a script for auto Install Openstack Queens in centos7 with 2 node
     ========== FORMAT ============
 
     Hostname   : $SERVER_TYPE
-
-    Interface  : $PROVIDER_INT_NAME
-    IP Address : $PROVIDER_IP
-    Netmask    : $PROVIDER_NETMASK
-    Gateway    : $PROVIDER_GATEWAY
-
+    
+    # MANAGEMENT NETWORK
     Interface  : $MANAGEMENT_INT_NAME
     IP Address : $MANAGEMENT_IP
     Netmask    : $MANAGEMENT_NETMASK
+    Gateway    : $MANAGEMENT_GATEWAY
+    
+    # PROVIDER NETWORK
+    Interface  : $PROVIDER_INT_NAME
+    IP Address : $PROVIDER_IP
+    Netmask    : $PROVIDER_NETMASK
     Gateway    : without gateway
 
     DNS Server : $DNS
 ```
-provider network is a network that is connected to the internet that will be used as an external network
+Management network is a network requires a gateway to provide Internet access to all nodes for administrative purposes such as package installation, security updates, DNS, and NTP.
 
-network management is a network used for internal communication in openstack clusters
+Provider network is a network that will be used as an external network for the instance
 
 - network Configuration example :
 ```
