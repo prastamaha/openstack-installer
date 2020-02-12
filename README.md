@@ -106,7 +106,7 @@ OpenStack requires a user and password for each service, when running *installer
 |  ADMIN_PASS | Password of user admin |
 |  GLANCE_PASS | Password of Image service user glance |
 |  GLANCEDB_PASS | Database password for Image service |
-| KEYSTONE_DBPASS | Database password of Identity service | 
+| KEYSTONEDB_PASS | Database password of Identity service | 
 |  NEUTRON_PASS | Password of Networking service user neutron |
 |  NEURONDB_PASS | Database password for the Networking service |
 |  NOVA_PASS | Password of Compute service user nova |
