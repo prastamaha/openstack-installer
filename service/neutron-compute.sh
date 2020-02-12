@@ -25,7 +25,7 @@ crudini --set /etc/neutron/neutron.conf keystone_authtoken project_domain_name D
 crudini --set /etc/neutron/neutron.conf keystone_authtoken user_domain_name Default
 crudini --set /etc/neutron/neutron.conf keystone_authtoken project_name service
 crudini --set /etc/neutron/neutron.conf keystone_authtoken username neutron
-crudini --set /etc/neutron/neutron.conf keystone_authtoken password NEUTRON_PASS
+crudini --set /etc/neutron/neutron.conf keystone_authtoken password $NEUTRON_PASS
 
 crudini --set /etc/nova/nova.conf neutron region_name RegionOne
 crudini --set /etc/nova/nova.conf neutron project_domain_name Default
@@ -35,7 +35,7 @@ crudini --set /etc/nova/nova.conf neutron user_domain_name Default
 crudini --set /etc/nova/nova.conf neutron auth_url http://$CONTROLLER_MANAGEMENT_IP:35357
 crudini --set /etc/nova/nova.conf neutron url http://$CONTROLLER_MANAGEMENT_IP:9696
 crudini --set /etc/nova/nova.conf neutron username neutron
-crudini --set /etc/nova/nova.conf neutron password NEUTRON_PASS
+crudini --set /etc/nova/nova.conf neutron password $NEUTRON_PASS
 
 crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path /var/lib/neutron/tmp
 
