@@ -10,6 +10,9 @@ echo 'WARNING: this script is run when the neutron service on the compute node i
 read -p 'Are you sure to continue? [Y/n]' run
 
 if [ "$run" = "Y" ]; then
+    
+    source ../admin_rc
+    
     echo
     echo "LOG: Populate neutron database"
     su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron
