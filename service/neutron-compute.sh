@@ -10,7 +10,7 @@ source network/network_var.sh
 
 echo
 echo 'LOG: Install component'
-yum install openstack-neutron-openvswitch ebtables ipset
+yum install openstack-neutron-openvswitch ebtables ipset -y
 
 echo
 echo 'LOG: Configure component'
