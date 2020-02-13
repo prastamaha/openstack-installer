@@ -43,11 +43,13 @@ Provider network is a network that will be used as an external network for the i
 
     Hostname   : controller
 
+    # MANAGEMENT NETWORK
     Interface  : enp2s0
     IP Address : 192.168.0.200
     Netmask    : 255.255.255.0
     Gateway    : 192.168.0.1
 
+    # PROVIDER NETWORK
     Interface  : enp3s0
     IP Address : 10.1.1.10
     Netmask    : 255.255.255.0
@@ -60,12 +62,14 @@ Provider network is a network that will be used as an external network for the i
     ======== COMPUTE NODE =========
 
     Hostname   : compute
-
+    
+    # MANAGEMENT NETWORK
     Interface  : enp2s0
     IP Address : 192.168.0.210
     Netmask    : 255.255.255.0
     Gateway    : 192.168.0.1
 
+    # PROVIDER NETWORK
     Interface  : enp3s0
     IP Address : 10.1.1.20
     Netmask    : 255.255.255.0
@@ -136,4 +140,145 @@ replace *$COMPUTE_PROVIDER_IP* and *$CONTROLLER_PROVIDER_IP* depens on your netw
 
 ## Instsallation
 
-__Comming soon__
+1. Clone the repository
+```
+# git clone https://github.com/prastamaha/openstack-installer.git
+```
+
+2. Go to openstack-installer directory
+```
+# cd openstack-installer/
+```
+
+3. Run the installer,  First we are going to configure controller, choose 1
+```
+# ./installer.sh
+    
+    WARNING: please follow the "README.md" before run this script
+    Select the type of server to be installed: 
+    [1] Controller
+    [2] Compute
+    >> 1
+```
+
+4. Will appear the banner for create network_var.sh, Press Y
+```
+    NOTE: if you have created network_var.sh before, select "n" 
+    Do you want to create network_var.sh [Y/n]? Y
+    
+    follow the instruction
+    network_var.sh will be placed on ~/openstack-installer/network/network_var.sh
+```
+
+5. Will appear the banner for create network_var.sh, Press Y
+```
+    NOTE: if you have created user_var.sh before, select "n" 
+    Do you want to create user_var.sh [Y/n]? Y
+    
+    follow the instruction
+    user_var.sh will be placed on ~/openstack-installer/user/user_var.sh
+```
+
+6. will appear the menu of service to be installed
+   press 1-6 to install openstack basic service in controller node
+```
+    ==============================
+    SELECT SERVICE TO BE INSTALLED: 
+    ==============================
+    [1] Prerequisites
+    [2] Keystone
+    [3] Glance
+    [4] Nova - controller
+    [5] Neutron - controller
+    [6] Horizon
+    [7] Add Nova compute service
+    [8] Add Neutron compute service
+    [0] Exit
+    >>
+    
+    follow instruction
+```
+
+7. in compute node follow step 1-2
+
+8. Run the installer, we are going to configure compute node, choose 2
+```
+# ./installer.sh
+    
+    WARNING: please follow the "README.md" before run this script
+    Select the type of server to be installed: 
+    [1] Controller
+    [2] Compute
+    >> 2
+```
+
+9. next, follow step 4-5
+
+10. After that, will appear the menu of service to be installed
+    press 1-3 to install openstack basic service in compute node
+```
+    ==============================
+    SELECT SERVICE TO BE INSTALLED: 
+    [1] Prerequisites
+    [2] Nova - compute
+    [3] Neutron - compute
+    [0] Exit
+    >>
+
+    follow instruction
+```
+11. We are go back to controller node
+    press 7-8 to add nova and neutron service in compute node
+```
+    ==============================
+    SELECT SERVICE TO BE INSTALLED: 
+    ==============================
+    [1] Prerequisites
+    [2] Keystone
+    [3] Glance
+    [4] Nova - controller
+    [5] Neutron - controller
+    [6] Horizon
+    [7] Add Nova compute service
+    [8] Add Neutron compute service
+    [0] Exit
+    >>
+    
+    follow instruction
+```
+
+12. check the nova agent (run on controller node)
+```
+# openstack compute service list
+```
+
+13. make sure nova agent list will appear like this
+```
+    +----+------------------+------------+----------+---------+-------+----------------------------+
+    | ID | Binary           | Host       | Zone     | Status  | State | Updated At                 |
+    +----+------------------+------------+----------+---------+-------+----------------------------+
+    |  1 | nova-consoleauth | controller | internal | enabled | up    | 2020-02-13T03:55:26.000000 |
+    |  2 | nova-conductor   | controller | internal | enabled | up    | 2020-02-13T03:55:28.000000 |
+    |  3 | nova-scheduler   | controller | internal | enabled | up    | 2020-02-13T03:55:27.000000 |
+    |  6 | nova-compute     | compute    | nova     | enabled | up    | 2020-02-13T03:55:21.000000 |
+    +----+------------------+------------+----------+---------+-------+----------------------------+
+```
+
+14. check the neutron agent (run on controller node)
+```
+# openstack network agent list
+```
+
+15. make sure neutron agent list will appear like this
+```
++--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
+| ID                                   | Agent Type         | Host       | Availability Zone | Alive | State | Binary                    |
++--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
+| 0b92a6a7-15c8-46a8-a270-5cf1adbc3faa | DHCP agent         | controller | nova              | :-)   | UP    | neutron-dhcp-agent        |
+| 11f455a5-21f3-46eb-a6c2-b20ab4b56d25 | L3 agent           | controller | nova              | :-)   | UP    | neutron-l3-agent          |
+| 2be94656-8768-4f18-8a5f-0aa29ab5da80 | Open vSwitch agent | controller | None              | :-)   | UP    | neutron-openvswitch-agent |
+| a0e2c1ba-2780-4c80-899b-b8c121af5713 | Metadata agent     | controller | None              | :-)   | UP    | neutron-metadata-agent    |
+| b2fc359a-5188-43f5-9bc8-d2db29f4a169 | Open vSwitch agent | compute    | None              | :-)   | UP    | neutron-openvswitch-agent |
++--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
+
+```
