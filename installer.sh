@@ -48,6 +48,7 @@ function controller () {
         
         echo '=============================='
         echo 'SELECT SERVICE TO BE INSTALLED: '
+        echo '=============================='
         echo '[1] Prerequisites'
         echo '[2] Keystone'
         echo '[3] Glance'
@@ -134,6 +135,7 @@ function compute () {
         
         echo '=============================='
         echo 'SELECT SERVICE TO BE INSTALLED: '
+        echo '=============================='
         echo '[1] Prerequisites'
         echo '[2] Nova - compute'
         echo '[3] Neutron - compute'
