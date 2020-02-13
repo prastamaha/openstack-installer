@@ -282,3 +282,8 @@ replace *$COMPUTE_PROVIDER_IP* and *$CONTROLLER_PROVIDER_IP* depens on your netw
 +--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
 
 ```
+
+16. if host compute doesnt appear in agent list, Reboot all nodes and run this command when the all nodes have bootup
+```
+# systemctl restart openstack-nova* neutron*
+```
