@@ -287,3 +287,15 @@ replace *$COMPUTE_PROVIDER_IP* and *$CONTROLLER_PROVIDER_IP* depens on your netw
 ```
 # systemctl restart openstack-nova* neutron*
 ```
+
+## Environment
+if you want install openstack on virtualization qemu-kvm, you need add configuration on your controller node like this:
+```
+nano /etc/nova/nova.conf
+
+virt_type=qemu
+```
+then restart nova and service
+```
+systemctl restart openstack-nova*
+```
