@@ -31,7 +31,7 @@ crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path /var/lib/neut
 
 echo
 echo 'LOG: Configure networking options'
-crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings provider:$COMPUTE_MANAGEMENT_INT
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings provider:$COMPUTE_PROVIDER_INT
 
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan true
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip $COMPUTE_MANAGEMENT_IP
