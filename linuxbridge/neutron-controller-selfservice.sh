@@ -86,7 +86,7 @@ crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini securitygroup enable_ipset t
 echo
 echo 'LOG: Configure Linuxbridge agent'
 
-crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings provider:$CONTROLLER_MANAGEMENT_INT
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings provider:$CONTROLLER_PROVIDER_INT
 
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan true
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan local_ip $CONTROLLER_MANAGEMENT_IP
